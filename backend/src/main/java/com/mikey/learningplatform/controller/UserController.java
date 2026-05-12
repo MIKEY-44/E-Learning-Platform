@@ -23,7 +23,7 @@ public class UserController {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body(Map.of("message", "Email already exists!"));
         }
-        if (user.getEmail().toLowerCase().contains("admin")) {
+        if (user.getEmail().equalsIgnoreCase("omkarkurdekar6361@gmail.com")) {
             user.setRole("ADMIN");
         } else {
             user.setRole("USER");
@@ -52,7 +52,7 @@ public class UserController {
         if (existingUser.isPresent()) {
             return ResponseEntity.ok(existingUser.get());
         }
-        if (user.getEmail().toLowerCase().contains("admin")) {
+        if (user.getEmail().equalsIgnoreCase("omkarkurdekar6361@gmail.com")) {
             user.setRole("ADMIN");
         } else {
             user.setRole("USER");

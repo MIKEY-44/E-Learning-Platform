@@ -1,4 +1,5 @@
 /Users/omkarkurdekar/ONLINE-LEARNING/backend/src/main/java/com/mikey/learningplatform/LearningPlatformApplication.java
+/Users/omkarkurdekar/ONLINE-LEARNING/backend/src/main/java/com/mikey/learningplatform/config/WebConfig.java
 /Users/omkarkurdekar/ONLINE-LEARNING/backend/src/main/java/com/mikey/learningplatform/controller/AdminController.java
 /Users/omkarkurdekar/ONLINE-LEARNING/backend/src/main/java/com/mikey/learningplatform/controller/CourseController.java
 /Users/omkarkurdekar/ONLINE-LEARNING/backend/src/main/java/com/mikey/learningplatform/controller/DiscussionController.java

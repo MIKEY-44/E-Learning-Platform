@@ -1,4 +1,5 @@
 com/mikey/learningplatform/controller/EnrollmentController.class
+com/mikey/learningplatform/config/WebConfig.class
 com/mikey/learningplatform/repository/ReviewRepository.class
 com/mikey/learningplatform/repository/DiscussionRepository.class
 com/mikey/learningplatform/controller/ReviewController.class
