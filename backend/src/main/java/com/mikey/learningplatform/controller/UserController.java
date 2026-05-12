@@ -38,7 +38,7 @@ public class UserController {
         String password = credentials.get("password");
 
         Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent() && password.equals(userOpt.get().getPassword())) {
+        if (userOpt.isPresent() && password != null && password.equals(userOpt.get().getPassword())) {
             User user = userOpt.get();
             updateStreak(user);
             return ResponseEntity.ok(userRepository.save(user));
