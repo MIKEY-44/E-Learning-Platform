@@ -66,14 +66,14 @@ async function fetchCourse() {
 
         const response =
             await fetch(
-                `http://localhost:8080/api/courses/${selectedCourseId}`
+                `https://e-learning-platform-1-qohf.onrender.com/api/courses/${selectedCourseId}`
             );
 
         selectedCourse =
             await response.json();
 
         if (loggedInUser) {
-            const enrollRes = await fetch(`http://localhost:8080/api/enrollments/status?userId=${loggedInUser.id}&courseId=${selectedCourseId}`);
+            const enrollRes = await fetch(`https://e-learning-platform-1-qohf.onrender.com/api/enrollments/status?userId=${loggedInUser.id}&courseId=${selectedCourseId}`);
             if (enrollRes.ok) {
                 currentEnrollment = await enrollRes.json();
             }
@@ -158,7 +158,7 @@ async function updateEnrollmentBackend(updates) {
     updates.userId = loggedInUser.id;
     updates.courseId = selectedCourse.id;
 
-    const res = await fetch("http://localhost:8080/api/enrollments/update", {
+    const res = await fetch("https://e-learning-platform-1-qohf.onrender.com/api/enrollments/update", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updates)
@@ -172,7 +172,7 @@ async function renderNotes() {
     if (!loggedInUser || !selectedCourse) return;
     const notesContainer = document.getElementById("notesContainer");
     try {
-        const res = await fetch(`http://localhost:8080/api/notes/user/${loggedInUser.id}/course/${selectedCourse.id}`);
+        const res = await fetch(`https://e-learning-platform-1-qohf.onrender.com/api/notes/user/${loggedInUser.id}/course/${selectedCourse.id}`);
         if (res.ok) {
             const notes = await res.json();
             notesContainer.innerHTML = notes.map(n => `
@@ -192,7 +192,7 @@ window.saveNote = async function() {
     const time = Math.floor(ytPlayer.getCurrentTime());
     
     try {
-        const res = await fetch("http://localhost:8080/api/notes", {
+        const res = await fetch("https://e-learning-platform-1-qohf.onrender.com/api/notes", {
             method: "POST", headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId: loggedInUser.id, courseId: selectedCourse.id, videoTimestamp: time, content: content })
         });
@@ -213,7 +213,7 @@ async function renderQA() {
     const qaContainer = document.getElementById("qaContainer");
     if (!qaContainer || !selectedCourse) return;
     try {
-        const res = await fetch(`http://localhost:8080/api/discussions/course/${selectedCourse.id}`);
+        const res = await fetch(`https://e-learning-platform-1-qohf.onrender.com/api/discussions/course/${selectedCourse.id}`);
         qaContainer.innerHTML = ""; // Clear previous content
 
         if (res.ok) {
@@ -258,7 +258,7 @@ window.postQuestion = async function() {
     const content = document.getElementById("qaInput").value;
     if (!content.trim()) return;
     try {
-        const res = await fetch("http://localhost:8080/api/discussions", {
+        const res = await fetch("https://e-learning-platform-1-qohf.onrender.com/api/discussions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ courseId: selectedCourse.id, userId: loggedInUser.id, userName: loggedInUser.name, content: content })
@@ -342,7 +342,7 @@ window.toggleLesson = async function(lessonIndex, totalLessons) {
         loggedInUser.badges = JSON.stringify(userBadges);
         localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
         
-        fetch(`http://localhost:8080/api/users/${loggedInUser.id}`, {
+        fetch(`https://e-learning-platform-1-qohf.onrender.com/api/users/${loggedInUser.id}`, {
             method: "PUT", headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ points: loggedInUser.points, badges: loggedInUser.badges })
         });
@@ -379,7 +379,7 @@ enrollBtn.addEventListener(
         }
 
         if (!currentEnrollment) {
-            const res = await fetch("http://localhost:8080/api/enrollments/enroll", {
+            const res = await fetch("https://e-learning-platform-1-qohf.onrender.com/api/enrollments/enroll", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId: loggedInUser.id, courseId: selectedCourse.id })

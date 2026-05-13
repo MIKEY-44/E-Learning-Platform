@@ -26,7 +26,7 @@ async function fetchCourses() {
 
         const response =
             await fetch(
-                "http://localhost:8080/api/courses"
+                "https://e-learning-platform-1-qohf.onrender.com/api/courses"
             );
 
         platformCourses =

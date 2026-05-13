@@ -1,3 +1,5 @@
+console.log("🚀 LATEST AUTH.JS LOADED: Verification Code 999");
+
 const signupForm =
     document.getElementById("signupForm");
 
@@ -25,7 +27,7 @@ if (signupForm) {
                 document.getElementById("signupPassword").value;
 
             try {
-                const response = await fetch("http://localhost:8080/api/users/signup", {
+                const response = await fetch("https://e-learning-platform-1-qohf.onrender.com/api/users/signup", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name, email, phoneNumber, password })
@@ -35,12 +37,17 @@ if (signupForm) {
                     showToast("Signup Successful! Redirecting to login...", "success");
                     setTimeout(() => window.location.href = "login.html", 1500);
                 } else {
-                    const err = await response.json();
-                    showToast(err.message || "Signup failed!", "error");
+                    try {
+                        const err = await response.json();
+                        showToast(err.message || "Signup failed!", "error");
+                    } catch (parseError) {
+                        // If it fails to parse JSON, Render is returning an HTML error page (server is asleep/starting)
+                        showToast("Server is waking up. Please wait 60 seconds and try again.", "error");
+                    }
                 }
             } catch (error) {
                 console.error(error);
-                showToast("Server error during signup.", "error");
+                showToast("Network error: " + error.message, "error");
             }
         }
     );
@@ -61,7 +68,7 @@ if (loginForm) {
                 document.getElementById("loginPassword").value;
 
             try {
-                const response = await fetch("http://localhost:8080/api/users/login", {
+                const response = await fetch("https://e-learning-platform-1-qohf.onrender.com/api/users/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password })
@@ -73,12 +80,16 @@ if (loginForm) {
                     showToast("Login Successful!", "success");
                     setTimeout(() => window.location.href = "dashboard.html", 1000);
                 } else {
-                    const err = await response.json();
-                    showToast(err.message || "Invalid Credentials!", "error");
+                    try {
+                        const err = await response.json();
+                        showToast(err.message || "Invalid Credentials!", "error");
+                    } catch (parseError) {
+                        showToast("Server is waking up. Please wait 60 seconds and try again.", "error");
+                    }
                 }
             } catch (error) {
                 console.error(error);
-                showToast("Server error during login.", "error");
+                showToast("Network error: " + error.message, "error");
             }
         }
     );
@@ -96,7 +107,7 @@ window.handleGoogleLogin = async function(response) {
     };
 
     try {
-        const apiResponse = await fetch("http://localhost:8080/api/users/google", {
+        const apiResponse = await fetch("https://e-learning-platform-1-qohf.onrender.com/api/users/google", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)

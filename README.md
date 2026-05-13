@@ -109,8 +109,7 @@ The frontend relies on the `http://localhost:8080` backend. Because it uses ES6 
 # Navigate to frontend directory
 cd frontend
 
-# Python 3
-python3 -m http.server 3000
+
 ```
 *Navigate to `http://localhost:3000` in your browser.*
 
